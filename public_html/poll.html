@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Poll</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>
+    <script src="knockout.dragdrop.js"></script>
+    <link rel="stylesheet" href="poll.css" type="text/css" media="screen" />
+</head>
+<body>
+    <h1 data-bind="text: title"></h1>
+    <span data-bind="text: votingSystem" class="tag"></span>
+    <span data-bind="text: status()" class="tag"></span>
+    <p data-bind="text: description">
+    </p>
+    <div>
+        <table data-bind="foreach: votes, dropZone: {
+            accepts: 'lists',
+            drop: castVote
+        }">
+            <tr data-bind="
+                dragZone: {
+                    name: 'sortable',
+                    dragStart: $parent.voteDragStart,
+                    dragEnd: $parent.voteDragEnd
+                },
+                dragEvents: {
+                    accepts: 'sortable',
+                    dragOver: $parent.voteReorder,
+                    data: {
+                        items: $parent.votes,
+                        item: $data
+                    }
+                }
+                "
+            >
+                <td>
+                    <button>▲</button>
+                    <br>
+                    <button>▼</button>
+                </td>
+                <td data-bind="text: $data.rank"></td>
+                <td data-bind="text: $data.title"></td>
+                <td><button data-bind="click: $parent.removeVote">Remove</button></td>
+            </tr>
+        </table>
+        <table data-bind="foreach: options" style="border-top:0;">
+            <tr>
+                <td>
+                    <button>▲</button>
+                    <br>
+                    <button disabled>▼</button>
+                </td>
+                <td>-</td>
+                <td data-bind="text: $data.title, dragZone: { name: 'lists' }"></td>
+                <!--<button data-bind="click: $parent.addVote">Support</button></td>-->
+            </tr>
+        </table>
+    </div>
+    </br>
+    <input name="member_id" placeholder="member_id"/>
+    <button>Send Vote</button>
+    <script src="poll.js"></script>
+</body>
+</html>

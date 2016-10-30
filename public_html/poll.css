@@ -1,0 +1,21 @@
+body {
+    margin:0 1em;
+    padding:0;
+    background: #efefef;
+}
+
+table {
+    border: 1px black dashed;
+    min-height: 2em;
+    min-width: 300px;
+}
+
+tr {
+    cursor: move;
+}
+
+.tag {
+    background: white;
+    padding:0.5em;
+    border-radius:.4em;
+}
